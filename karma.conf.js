@@ -32,4 +32,10 @@ module.exports = function (config) {
     browsers: ['PhantomJS'],
     singleRun: false
   });
+
+  // override config options for travis build
+  if (process.env.TRAVIS) {
+    config.singleRun = true;
+  }
+
 };
