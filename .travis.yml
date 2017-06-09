@@ -4,6 +4,8 @@ node_js:
 before_script:
 - npm install -g @angular/cli
 notifications:
-  email: true
+  email: false
   on_success: always
   on_failure: always
+  slack:
+    secure: jgjzjVZ3yJ5oS3YxjaFG1cpGIGydyGcGJADSqxni9jYNK/i210Ie509J8ykVzNIvjhZv6l0CfoCkFaTZe3SLMcpIQSllH9U+v9nIMmou8F90IHAk9IA1IqY9FXU8TwI0nH4gixBrk1jop1Hg5jBohNkXyXFTrN4sGFUbjwhllvzyX52pT6awElWLrdDG2JNwvuJjm53LnX2tw+KYv7k9iBM8scyAaF3v/B4sPRE3uRo2xs0AA8mOfPW3c3UYfvHDz9YAiXkqkSy2YF9dGaoCTNjELqXxhEHLs74XaD+E4cPlvH7ZPSzxJh32U6UgvP+TIidQpHHv5WPuqBKZVfnHa1v/w8hMyPeCEDD+RKIf19nm0ev7wOU9QSOPBvXUyA1dwzNwyxsF8ZwKZr1fB/V/1diEp9GzYJ96jeZFWhTUavrUIa+98hggvUUv1zXYYC0UCoOcM7aJ6HHxdHAafZdN/Z2aoDvCL0ixMQXnemai1tWZv41BQr9hzBy9AzsPTnVmWx6utC/3Queoa8Mhe+9qX7iCDH+4RkZSUnJjDoGd/Kunmmraz5g5Ahb30Uvmaf0j6m7rW/Pium08/Xl3YiDAM9S5leITmK11XvRRwkFv3Hql7HU7UvYS/sj+5i90YcDwD2XyyMPYarDOBNwZp2ME1IL1/lpYYclfgxHlnd4Lk60=
