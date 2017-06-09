@@ -7,7 +7,7 @@ import {Observable} from 'rxjs/Observable';
 import {environment} from '../../environments/environment';
 import {PaintColorService} from './paint-color.service';
 import {PaintColor} from './paint-color';
-import {PaintColorFilter} from './paint-color-filter';
+import {Filter} from '../core/filter';
 
 describe('PaintColorService', () => {
 
@@ -65,7 +65,7 @@ describe('PaintColorService', () => {
       })));
 
       it('with filter', async(inject([PaintColorService], (service: PaintColorService) => {
-        const filter = new PaintColorFilter(new PaintColor());
+        const filter = new Filter(new PaintColor());
         service.getPaintColors(filter);
 
         const options = {

@@ -6,7 +6,7 @@ import 'rxjs/add/operator/map';
 
 import {environment} from '../../environments/environment';
 import {PaintColor} from './paint-color';
-import {PaintColorFilter} from './paint-color-filter';
+import {Filter} from '../core/filter';
 
 @Injectable()
 export class PaintColorService {
@@ -15,7 +15,7 @@ export class PaintColorService {
 
   }
 
-  getPaintColors(filter?: PaintColorFilter): Observable<PaintColor[]> {
+  getPaintColors(filter?: Filter<PaintColor>): Observable<PaintColor[]> {
     const options = {
       params: {
         filter: filter
