@@ -1,3 +1,7 @@
 <p>
   show-paint-colors works!
 </p>
+
+<li *ngFor="let paintColor of paintColors | async">
+  <gdb-paint-color-card [paintColor]="paintColor"></gdb-paint-color-card>
+</li>

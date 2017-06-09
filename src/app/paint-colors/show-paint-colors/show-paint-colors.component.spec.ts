@@ -1,6 +1,8 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { ShowPaintColorsComponent } from './show-paint-colors.component';
+import {ShowPaintColorsComponent} from './show-paint-colors.component';
+import {PaintColorService} from '../paint-color.service';
+import {MockPaintColorService} from '../mock-paint-color.service';
 
 describe('ShowPaintColorsComponent', () => {
   let component: ShowPaintColorsComponent;
@@ -8,9 +10,10 @@ describe('ShowPaintColorsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ShowPaintColorsComponent ]
+      declarations: [ShowPaintColorsComponent],
+      providers: [{provide: PaintColorService, useClass: MockPaintColorService}]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
@@ -21,5 +24,6 @@ describe('ShowPaintColorsComponent', () => {
 
   it('should be created', () => {
     expect(component).toBeTruthy();
-  });
+   });
+
 });
