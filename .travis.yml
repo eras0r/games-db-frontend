@@ -1,0 +1,9 @@
+language: node_js
+node_js:
+- '7'
+before_script:
+- npm install -g @angular/cli
+notifications:
+  email: true
+  on_success: always
+  on_failure: always
