@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
-import {ShowPaintColorsComponent} from './show-paint-colors/show-paint-colors.component';
+import {ShowPaintColorsComponent} from './paint-colors-grid/paint-colors-grid.component';
 
 const routes: Routes = [
   {

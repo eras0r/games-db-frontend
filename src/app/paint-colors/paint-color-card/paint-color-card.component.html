@@ -1,1 +1,23 @@
-{{paintColor.id}} - {{paintColor.name}}
+<div class="card" [ngStyle]="{'background-color': '#' + paintColor.hexColor}">
+  <!--<img class="card-img-top" src="..." alt="Card image cap">-->
+  <div class="card-block">
+    <h4 class="card-title">{{paintColor.name}}</h4>
+    <div class="card-text">
+      <ul class="list-group">
+        <li class="list-group-item">
+          <span class="col-sm-9">Color: </span>
+          <span class="col-sm-3 badge badge-default">{{paintColor.hexColor}}</span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="card-footer">
+      <!--<small class="text-muted">TODO</small>-->
+      <div class="form-check form-check-inline">
+        <label class="form-check-label">
+          <input class="form-check-input" type="checkbox" value="option1">Own
+        </label>
+      </div>
+    </div>
+  </div>
+</div>

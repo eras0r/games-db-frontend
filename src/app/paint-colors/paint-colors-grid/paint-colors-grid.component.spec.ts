@@ -1,16 +1,17 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import {ShowPaintColorsComponent} from './show-paint-colors.component';
+import {ShowPaintColorsComponent} from './paint-colors-grid.component';
 import {PaintColorService} from '../paint-color.service';
-import {MockPaintColorService} from '../mock-paint-color.service';
+import {MockPaintColorService} from '../paint-color.service.mock';
+import {PaintColorCardComponent} from '../paint-color-card/paint-color-card.component';
 
-describe('ShowPaintColorsComponent', () => {
+describe('PaintColorsGridComponent', () => {
   let component: ShowPaintColorsComponent;
   let fixture: ComponentFixture<ShowPaintColorsComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ShowPaintColorsComponent],
+      declarations: [ShowPaintColorsComponent, PaintColorCardComponent],
       providers: [{provide: PaintColorService, useClass: MockPaintColorService}]
     })
       .compileComponents();
@@ -24,6 +25,6 @@ describe('ShowPaintColorsComponent', () => {
 
   it('should be created', () => {
     expect(component).toBeTruthy();
-   });
+  });
 
 });

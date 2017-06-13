@@ -1,0 +1,21 @@
+@import '../../../styles';
+
+.card-columns {
+
+  @include media(">=xl") {
+    column-count: 4;
+  }
+
+  @include media(">=lg", "<xl") {
+    column-count: 3;
+  }
+  @include media(">=md", "<lg") {
+    column-count: 2;
+  }
+  @include media(">=sm", "<=md") {
+    column-count: 1;
+  }
+  @include media(">=xs", "<=sm") {
+    column-count: 1;
+  }
+}

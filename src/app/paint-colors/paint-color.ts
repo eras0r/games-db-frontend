@@ -24,6 +24,13 @@ export class PaintColor {
    */
   private hexColor: string;
 
+  public constructor(id?: string, name?: string, range?: PaintColorBase, hexColor?: string) {
+    this.id = id;
+    this.name = name;
+    this.range = range;
+    this.hexColor = hexColor;
+  }
+
   public getId(): string {
     return this.id;
   }
