@@ -1,4 +1,4 @@
-import {PaintColorBase} from './paint-color-base';
+import {PaintColorRange} from './paint-color-range';
 
 /**
  * Represents a Paint color.
@@ -17,14 +17,14 @@ export class PaintColor {
   /**
    * The range (type).
    */
-  private range: PaintColorBase;
+  private range: PaintColorRange;
 
   /**
    * The color in hexaadecimal format.
    */
   private hexColor: string;
 
-  public constructor(id?: string, name?: string, range?: PaintColorBase, hexColor?: string) {
+  public constructor(id?: string, name?: string, range?: PaintColorRange, hexColor?: string) {
     this.id = id;
     this.name = name;
     this.range = range;
@@ -43,11 +43,11 @@ export class PaintColor {
     this.name = name;
   }
 
-  public getRange(): PaintColorBase {
+  public getRange(): PaintColorRange {
     return this.range;
   }
 
-  public setRange(range: PaintColorBase): void {
+  public setRange(range: PaintColorRange): void {
     this.range = range;
   }
 
