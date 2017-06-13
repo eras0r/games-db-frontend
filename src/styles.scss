@@ -1,6 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
 @import 'variables';
 @import '../node_modules/bootswatch/darkly/variables';
+@import '../node_modules/include-media/dist/include-media';
 
 @import '../node_modules/bootstrap/scss/bootstrap';
 @import '../node_modules/bootswatch/darkly/bootswatch';
+
+// responsive media query selectors (see http://saddamazad.com/2015/12/bootstrap-4-media-queries-using-sass/)
+$breakpoints: $grid-breakpoints;
