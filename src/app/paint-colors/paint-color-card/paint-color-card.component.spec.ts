@@ -35,9 +35,14 @@ describe('PaintColorCardComponent', () => {
     expect(compiled.query(By.css('h4.card-title')).nativeElement.textContent).toEqual(component.paintColor.getName());
   });
 
-  it('should display hex color card-title', () => {
+  it('should display the hex color', () => {
     const hexColorListElement = compiled.queryAll(By.css('li.list-group-item'))[0];
     expect(hexColorListElement.children[1].nativeElement.innerHTML).toEqual(component.paintColor.getHexColor());
+  });
+
+  it('should display the range', () => {
+    const hexColorListElement = compiled.queryAll(By.css('li.list-group-item'))[1];
+    expect(hexColorListElement.children[1].nativeElement.innerHTML).toEqual(component.paintColor.getRange());
   });
 
   it('should use the color as background-color for the card', () => {
