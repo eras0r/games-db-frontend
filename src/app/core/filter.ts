@@ -8,7 +8,7 @@ export class Filter<T> {
    *
    * @param where the where criteria which restricts the objects being returned.
    */
-  constructor(private where: T) {
+  constructor(private where?: T) {
 
   }
 
