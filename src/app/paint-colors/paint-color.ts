@@ -35,6 +35,10 @@ export class PaintColor {
     return this.id;
   }
 
+  public setId(id: string): void {
+    this.id = id;
+  }
+
   public getName(): string {
     return this.name;
   }
