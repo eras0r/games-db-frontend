@@ -11,14 +11,22 @@ import {PaintColor} from '../paint-color';
 })
 export class PaintColorsGridComponent implements OnInit {
 
-  public paintColors: Observable<PaintColor[]>;
+  public paintColors: PaintColor[];
 
   constructor(private paintColorService: PaintColorService) {
 
   }
 
   ngOnInit() {
-    this.paintColors = this.loadPaintColors();
+    this.loadPaintColors().subscribe(
+      paintColors => {
+        this.paintColors = paintColors;
+      },
+      error => {
+        // TODO error handling
+        console.error('error: ', error);
+      }
+    );
   }
 
   loadPaintColors(): Observable<PaintColor[]> {
