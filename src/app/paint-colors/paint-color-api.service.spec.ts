@@ -75,7 +75,7 @@ describe('PaintColorApiService', () => {
       })));
 
       it('with filter', async(inject([PaintColorApiService], (service: PaintColorApiService) => {
-        const filter = new Filter(new PaintColor());
+        const filter = new Filter(new PaintColor(undefined, undefined, 'Base'));
 
         service.getPaintColors(filter);
 
