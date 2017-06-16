@@ -1,107 +1,148 @@
-import {async, inject, TestBed} from '@angular/core/testing';
-import {Http, HttpModule, Response, ResponseOptions, XHRBackend} from '@angular/http';
-import {MockBackend, MockConnection} from '@angular/http/testing';
+import {inject, TestBed} from '@angular/core/testing';
+import {HttpModule} from '@angular/http';
 
 import {Observable} from 'rxjs/Observable';
-
-import {environment} from '../../environments/environment';
 import {PaintColorService} from './paint-color.service';
 import {PaintColor} from './paint-color';
 import {Filter} from '../core/filter';
 import {PaintColorApiService} from './paint-color-api.service';
+import {PaintColorsMock} from './paint-colors.mock';
+import {PaintColorApiMockService} from './paint-color-api.service.mock';
 
 describe('PaintColorService', () => {
 
-  const fakePaintColors: PaintColor[] = [
-    new PaintColor(),
-    new PaintColor()
-  ];
+  let service: PaintColorService;
+  let apiService: PaintColorApiService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpModule],
-      providers: [PaintColorService, PaintColorApiService, {provide: XHRBackend, useClass: MockBackend}]
+      providers: [PaintColorService, {provide: PaintColorApiService, useClass: PaintColorApiMockService}]
     });
   });
 
-  it('should be created', inject([PaintColorService], (service: PaintColorService) => {
-    expect(service).toBeTruthy();
-  }));
-
-  // TODO implement tests
-  xdescribe('getPaintColors()', () => {
-    let backend: MockBackend;
-    let httpSpy: Http;
-    let successFulResponse: Response;
-    let errorResponse: Error;
-
-    beforeEach(inject([Http, XHRBackend], (http: Http, be: MockBackend) => {
-      backend = be;
-      httpSpy = http;
-
-      spyOn(httpSpy, 'get').and.callThrough();
-
-      const options = new ResponseOptions({status: 200, body: fakePaintColors});
-      successFulResponse = new Response(options);
-      errorResponse = new Error();
+  beforeEach(inject([PaintColorService, PaintColorApiService],
+    (_service_: PaintColorService, _apiService_: PaintColorApiService) => {
+      service = _service_;
+      apiService = _apiService_;
     }));
 
-    it('should return an Observable', async(inject([PaintColorService], (service: PaintColorService) => {
-      expect(service.getPaintColors() instanceof Observable).toBe(true);
-    })));
+  it('should be created', () => {
+    expect(service).toBeTruthy();
+  });
 
-    describe('should call the REST API endpoint properly', () => {
+  describe('getPaintColors()', () => {
+    const filter = new Filter<PaintColor>();
 
-      const url = environment.apiUrl + 'paint-colors/';
+    it('should call the apiService', () => {
+      service.getPaintColors(filter);
 
-      it('without filter', async(inject([PaintColorService], (service: PaintColorService) => {
-        service.getPaintColors();
-
-        const options = {
-          params: {
-            filter: undefined
-          }
-        };
-
-        expect(httpSpy.get).toHaveBeenCalledWith(url, options);
-      })));
-
-      it('with filter', async(inject([PaintColorService], (service: PaintColorService) => {
-        const filter = new Filter(new PaintColor());
-        service.getPaintColors(filter);
-
-        const options = {
-          params: {
-            filter: filter
-          }
-        };
-
-        expect(httpSpy.get).toHaveBeenCalledWith(url, options);
-      })));
-
+      expect(apiService.getPaintColors).toHaveBeenCalledWith(filter);
     });
 
-    it('should contain the paint colors returned by the REST API', async(inject([PaintColorService], (service: PaintColorService) => {
-      backend.connections.subscribe((c: MockConnection) => c.mockRespond(successFulResponse));
+    it('should return an Observable', async () => {
+      expect(service.getPaintColors(filter) instanceof Observable).toBe(true);
+    });
 
-      service.getPaintColors().subscribe(
-        paintColors => {
-          expect(paintColors).toEqual(fakePaintColors, 'should have expected paintColors');
+    it('should contain the proper value within the Observable', (done: DoneFn) => {
+      service.getPaintColors(filter)
+        .subscribe(paintColors => {
+          expect(paintColors).toBe(PaintColorsMock.MOCK_PAINT_COLORS);
+          done();
         });
-    })));
+    });
 
-    it('should contain the error in case the REST API calls was erroneous',
-      async(inject([PaintColorService], (service: PaintColorService) => {
-        backend.connections.subscribe((c: MockConnection) => c.mockError(errorResponse));
+  });
 
-        service.getPaintColors().subscribe(
-          paintColors => {
+  describe('createPaintColor()', () => {
+    const newPaintColor = new PaintColor(undefined, 'Astorath Red', 'Dry', 'DD482B');
 
-          },
-          err => {
-            expect(err).toBe(errorResponse);
-          });
-      })));
+    it('should call the apiService', () => {
+      service.createPaintColor(newPaintColor);
+
+      expect(apiService.createPaintColor).toHaveBeenCalledWith(newPaintColor);
+    });
+
+    it('should return an Observable', async () => {
+      expect(service.createPaintColor(newPaintColor) instanceof Observable).toBe(true);
+    });
+
+    it('should contain the proper value within the Observable', (done: DoneFn) => {
+      service.createPaintColor(newPaintColor)
+        .subscribe(createdPaintColor => {
+          expect(createdPaintColor).toBe(newPaintColor);
+          done();
+        });
+    });
+
+  });
+
+  describe('getPaintColorById()', () => {
+    const id = '1';
+
+    it('should call the apiService', () => {
+      service.getPaintColorById(id);
+
+      expect(apiService.getPaintColorById).toHaveBeenCalledWith(id);
+    });
+
+    it('should return an Observable', async () => {
+      expect(service.getPaintColorById(id) instanceof Observable).toBe(true);
+    });
+
+    it('should contain the proper value within the Observable', (done: DoneFn) => {
+      service.getPaintColorById(id)
+        .subscribe(returnedPaintColor => {
+          expect(returnedPaintColor).toBe(PaintColorsMock.MOCK_PAINT_COLORS[0]);
+          done();
+        });
+    });
+
+  });
+
+  describe('updatePaintColor()', () => {
+    const paintColorUpdate = new PaintColor('1', 'Astorath Red', 'Dry', 'DD482B');
+
+    it('should call the apiService', () => {
+      service.updatePaintColor(paintColorUpdate);
+
+      expect(apiService.updatePaintColor).toHaveBeenCalledWith(paintColorUpdate);
+    });
+
+    it('should return an Observable', async () => {
+      expect(service.updatePaintColor(paintColorUpdate) instanceof Observable).toBe(true);
+    });
+
+    it('should contain the proper value within the Observable', (done: DoneFn) => {
+      service.updatePaintColor(paintColorUpdate)
+        .subscribe(updatedPaintColor => {
+          expect(updatedPaintColor).toBe(paintColorUpdate);
+          done();
+        });
+    });
+
+  });
+
+  describe('deletePaintColorById()', () => {
+    const id = '1';
+
+    it('should call the apiService', () => {
+      service.deletePaintColorById(id);
+
+      expect(apiService.deletePaintColorById).toHaveBeenCalledWith(id);
+    });
+
+    it('should return an Observable', async () => {
+      expect(service.deletePaintColorById(id) instanceof Observable).toBe(true);
+    });
+
+    it('should not contain any value within the Observable', (done: DoneFn) => {
+      service.deletePaintColorById(id)
+        .subscribe(foo => {
+          expect(foo).toBeNull();
+          done();
+        });
+    });
 
   });
 
