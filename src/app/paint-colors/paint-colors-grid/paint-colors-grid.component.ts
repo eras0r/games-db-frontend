@@ -9,7 +9,7 @@ import {PaintColor} from '../paint-color';
   templateUrl: './paint-colors-grid.component.html',
   styleUrls: ['./paint-colors-grid.component.scss']
 })
-export class ShowPaintColorsComponent implements OnInit {
+export class PaintColorsGridComponent implements OnInit {
 
   public paintColors: Observable<PaintColor[]>;
 
