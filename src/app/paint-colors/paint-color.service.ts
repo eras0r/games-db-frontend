@@ -21,4 +21,16 @@ export class PaintColorService {
     return this.paintColorApiService.createPaintColor(paintColor);
   }
 
+  public getPaintColorById(id: string): Observable<PaintColor> {
+    return this.paintColorApiService.getPaintColorById(id);
+  }
+
+  public updatePaintColor(paintColor: PaintColor): Observable<PaintColor> {
+    return this.paintColorApiService.updatePaintColor(paintColor);
+  }
+
+  public deletePaintColorById(id: string): Observable<null> {
+    return this.paintColorApiService.deletePaintColorById(id);
+  }
+
 }
