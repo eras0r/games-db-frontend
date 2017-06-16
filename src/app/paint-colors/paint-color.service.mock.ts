@@ -3,14 +3,10 @@ import {Observable} from 'rxjs/Observable';
 
 import {Filter} from '../core/filter';
 import {PaintColor} from './paint-color';
+import {PaintColorsMock} from './paint-colors.mock';
 
 @Injectable()
 export class PaintColorMockService {
-
-  public static readonly MOCK_PAINT_COLORS: PaintColor[] = [
-    new PaintColor('1', 'Caliban Green', 'Base', '00401F'),
-    new PaintColor('2', 'Lothern Blue', 'Layer', '32A2CF')
-  ];
 
   constructor() {
     // init spies
@@ -22,18 +18,18 @@ export class PaintColorMockService {
   }
 
   public getPaintColors(filter?: Filter<PaintColor>): Observable<PaintColor[]> {
-    return Observable.of(PaintColorMockService.MOCK_PAINT_COLORS);
+    return Observable.of(PaintColorsMock.MOCK_PAINT_COLORS);
   }
 
   public createPaintColor(paintColor: PaintColor): Observable<PaintColor> {
-    const id = PaintColorMockService.MOCK_PAINT_COLORS.length + 1 + '';
+    const id = PaintColorsMock.MOCK_PAINT_COLORS.length + 1 + '';
     paintColor.setId(id);
 
     return Observable.of(paintColor);
   }
 
   public getPaintColorById(id: string): Observable<PaintColor> {
-    return Observable.of(PaintColorMockService.MOCK_PAINT_COLORS.filter(color => color.getId() === id)[0]);
+    return Observable.of(PaintColorsMock.MOCK_PAINT_COLORS.filter(color => color.getId() === id)[0]);
   }
 
   public updatePaintColor(paintColor: PaintColor): Observable<PaintColor> {

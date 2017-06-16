@@ -6,6 +6,7 @@ import {PaintColorService} from '../paint-color.service';
 import {PaintColorMockService} from '../paint-color.service.mock';
 import {PaintColorCardComponent} from '../paint-color-card/paint-color-card.component';
 import {By} from '@angular/platform-browser';
+import {PaintColorsMock} from '../paint-colors.mock';
 
 describe('PaintColorsGridComponent', () => {
   let component: PaintColorsGridComponent;
@@ -36,7 +37,7 @@ describe('PaintColorsGridComponent', () => {
     it('should assign the paint colors', fakeAsync(() => {
       tick();
 
-      expect(component.paintColors).toBe(PaintColorMockService.MOCK_PAINT_COLORS);
+      expect(component.paintColors).toBe(PaintColorsMock.MOCK_PAINT_COLORS);
     }));
 
     describe('should show a paint color card for each paint color', () => {
@@ -45,11 +46,11 @@ describe('PaintColorsGridComponent', () => {
         tick();
 
         const paintColorCards = compiled.queryAll(By.css('gdb-paint-color-card'));
-        expect(paintColorCards.length).toBe(PaintColorMockService.MOCK_PAINT_COLORS.length);
+        expect(paintColorCards.length).toBe(PaintColorsMock.MOCK_PAINT_COLORS.length);
 
         let cardComponent;
 
-        PaintColorMockService.MOCK_PAINT_COLORS.forEach((paintColor, i) => {
+        PaintColorsMock.MOCK_PAINT_COLORS.forEach((paintColor, i) => {
           cardComponent = paintColorCards[i].componentInstance;
 
           expect(cardComponent instanceof PaintColorCardComponent).toBe(true);
@@ -61,11 +62,11 @@ describe('PaintColorsGridComponent', () => {
         tick();
 
         const paintColorCards = compiled.queryAll(By.css('gdb-paint-color-card'));
-        expect(paintColorCards.length).toBe(PaintColorMockService.MOCK_PAINT_COLORS.length);
+        expect(paintColorCards.length).toBe(PaintColorsMock.MOCK_PAINT_COLORS.length);
 
         let cardComponent;
 
-        PaintColorMockService.MOCK_PAINT_COLORS.forEach((paintColor, i) => {
+        PaintColorsMock.MOCK_PAINT_COLORS.forEach((paintColor, i) => {
           cardComponent = paintColorCards[i].componentInstance;
 
           expect(cardComponent.paintColor).toBe(paintColor);

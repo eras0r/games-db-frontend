@@ -1,12 +1,14 @@
 import {async, inject, TestBed} from '@angular/core/testing';
-
-import {PaintColorApiService} from './paint-color-api.service';
-import {PaintColor} from './paint-color';
 import {MockBackend, MockConnection} from '@angular/http/testing';
 import {Http, HttpModule, Response, ResponseOptions, XHRBackend} from '@angular/http';
+
 import {Observable} from 'rxjs/Observable';
+
 import {Filter} from '../core/filter';
 import {environment} from '../../environments/environment';
+import {PaintColorApiService} from './paint-color-api.service';
+import {PaintColor} from './paint-color';
+import {PaintColorsMock} from './paint-colors.mock';
 
 function mockSuccessResponse(backend: MockBackend, body: Object): void {
   const options = new ResponseOptions({status: 200, body: body});
@@ -25,14 +27,11 @@ function mockErrorResponse(backend: MockBackend): Error {
 
 describe('PaintColorApiService', () => {
   const API_URL: string = environment.apiUrl;
+  const fakePaintColors = PaintColorsMock.MOCK_PAINT_COLORS;
 
   let backend: MockBackend;
-  let httpSpy: Http;
 
-  const fakePaintColors: PaintColor[] = [
-    new PaintColor('1', 'Caliban Green', 'Base', '00401F'),
-    new PaintColor('2', 'Lothern Blue', 'Layer', '32A2CF')
-  ];
+  let httpSpy: Http;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -137,22 +136,22 @@ describe('PaintColorApiService', () => {
 
     it('should call the REST API endpoint properly',
       async(inject([PaintColorApiService], (service: PaintColorApiService) => {
-      const url = API_URL + '/paint-colors';
+        const url = API_URL + '/paint-colors';
 
-      service.createPaintColor(newPaintColor);
+        service.createPaintColor(newPaintColor);
 
-      expect(httpSpy.post).toHaveBeenCalledWith(url, newPaintColor);
-    })));
+        expect(httpSpy.post).toHaveBeenCalledWith(url, newPaintColor);
+      })));
 
     it('should contain the paint color returned by the REST API',
       async(inject([PaintColorApiService], (service: PaintColorApiService) => {
-      mockSuccessResponse(backend, createdPaintColor);
+        mockSuccessResponse(backend, createdPaintColor);
 
-      service.createPaintColor(newPaintColor).subscribe(
-        paintColor => {
-          expect(paintColor).toEqual(createdPaintColor, 'should contain the expected paintColor');
-        });
-    })));
+        service.createPaintColor(newPaintColor).subscribe(
+          paintColor => {
+            expect(paintColor).toEqual(createdPaintColor, 'should contain the expected paintColor');
+          });
+      })));
 
     it('should contain the error in case the REST API calls was erroneous',
       async(inject([PaintColorApiService], (service: PaintColorApiService) => {
@@ -183,22 +182,22 @@ describe('PaintColorApiService', () => {
 
     it('should call the REST API endpoint properly',
       async(inject([PaintColorApiService], (service: PaintColorApiService) => {
-      const url = API_URL + '/paint-colors/' + id;
+        const url = API_URL + '/paint-colors/' + id;
 
-      service.getPaintColorById(id);
+        service.getPaintColorById(id);
 
-      expect(httpSpy.get).toHaveBeenCalledWith(url);
-    })));
+        expect(httpSpy.get).toHaveBeenCalledWith(url);
+      })));
 
     it('should contain the paint color returned by the REST API',
       async(inject([PaintColorApiService], (service: PaintColorApiService) => {
-      mockSuccessResponse(backend, testPaintColor);
+        mockSuccessResponse(backend, testPaintColor);
 
-      service.getPaintColorById(id).subscribe(
-        paintColor => {
-          expect(paintColor).toEqual(testPaintColor, 'should contain the expected paintColor');
-        });
-    })));
+        service.getPaintColorById(id).subscribe(
+          paintColor => {
+            expect(paintColor).toEqual(testPaintColor, 'should contain the expected paintColor');
+          });
+      })));
 
     it('should contain the error in case the REST API calls was erroneous',
       async(inject([PaintColorApiService], (service: PaintColorApiService) => {
